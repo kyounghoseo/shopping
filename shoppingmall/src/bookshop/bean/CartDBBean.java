@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;
@@ -16,7 +18,7 @@ public class CartDBBean {
 	public static CartDBBean getInstance() {
 		return instance;
 	}
-
+ 
 	private CartDBBean() {
 
 	}
@@ -28,7 +30,7 @@ public class CartDBBean {
 		return ds.getConnection();
 
 	}
-
+	//장바구니 담기 를 클릭하면 수행되는 것으로 cart 테이블에 새로운 레코드를 추가
 	public void insertCart(CartDataBean cart)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -64,7 +66,7 @@ public class CartDBBean {
 		}
 	}
 
-	
+	//id에 해당하는 레코드의 수를 얻어내는 메소드
 	public int getListCount(String id)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -100,16 +102,146 @@ public class CartDBBean {
 		return x;
 	}
 	
+	//id에 해당하는 레코드의 목록을 얻어내는 메소드
+	public List<CartDataBean> getCart(String id,int count)throws Exception{
+		
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		CartDataBean cart = null;
+		String sql = "";
+		List<CartDataBean> lists = null;
+		
+		try{
+			conn = getConnection();
+			
+			sql = "select * from cart where buyer = ?";
+			pstmt = conn.prepareStatement(sql);
+			
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			lists = new ArrayList<CartDataBean>(count);
+			
+			while(rs.next()){
+				cart = new CartDataBean();
+				
+				cart.setCart_id(rs.getInt("cart_id"));
+				cart.setBook_id(rs.getInt("book_id"));
+				cart.setBook_title(rs.getString("book_title"));
+				cart.setBuy_price(rs.getInt("buy_price"));
+				cart.setBuy_count(rs.getByte("buy_count"));
+				cart.setBook_image(rs.getString("book_image"));
+				
+				lists.add(cart);
+			}
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			
+		}finally {
+			try{
+				if(rs!=null)
+					rs.close();
+				if(pstmt!=null)
+					pstmt.close();
+				if(conn!=null)
+					conn.close();
+			}catch (SQLException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+		return lists;
+	}
+	
+	//장바구니에서 수량 수정 시 실행되는 메소드
+	public void updateCount(int cart_id, byte count)throws Exception{
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try{
+			conn= getConnection();
+			
+			pstmt = conn.prepareStatement("update cart set buy_count=? where cart_id=?");
+			pstmt.setByte(1, count);
+			pstmt.setInt(2, cart_id);
+			pstmt.executeUpdate();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			
+		}finally {
+			try{
+				if(pstmt!=null)
+					pstmt.close();
+				if(conn!=null)
+					conn.close();
+			}catch (SQLException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+	}
 	
 	
+	//장바구니에서 cart_id에 대한 레코드를 삭제하는 메소드
+	public void deleteList(int cart_id)throws Exception{
+		
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		
+		try{
+			conn = getConnection();
+			
+			pstmt = conn.prepareStatement("delete from cart where cart_id=?");
+			pstmt.setInt(1, cart_id);
+			pstmt.executeUpdate();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			
+		}finally {
+			try{
+				if(pstmt!=null)
+					pstmt.close();
+				if(conn!=null)
+					conn.close();
+			}catch (SQLException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+	}
 	
-	
-	
-	
-	
-	
-	
-	
+	//id에 해당하는 모든 레코드를 삭제하는 메소드로 [장바구니 비우기] 버튼을 클릭 시 실행된다.
+	public void deleteAll(String id)throws Exception{
+		Connection conn = null ;
+		PreparedStatement pstmt = null;
+		
+		try{
+			conn = getConnection();
+			
+			pstmt = conn.prepareStatement("delete from cart where buyer=?");
+			pstmt.setString(1, id);
+			pstmt.executeUpdate();
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			try{
+				if(pstmt!=null)
+					pstmt.close();
+				if(conn!=null)
+					conn.close();
+			}catch (SQLException e) {
+				// TODO: handle exception
+				e.printStackTrace();
+			}
+		}
+		
+	}
 	
 	
 	
