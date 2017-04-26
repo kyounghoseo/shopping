@@ -160,6 +160,67 @@ public class LogonDBBean {
 	/*------------회원정보 끝 ---------------------------------------------*/	
 	
 	//주어진 id, passwd에 해당하는 회원정보를 얻어내는 메소드
+	public LogonDataBean getMember(String id, String passwd){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		LogonDataBean member = null;
+		
+		SHA256 sha = SHA256.getInsatnce();
+		try{
+			conn = getConnection();
+			
+			String orgPass = passwd;
+			String shaPass = sha.getSha256(orgPass.getBytes());
+			
+			pstmt = conn.prepareStatement(" select * from member where id = ?");
+			pstmt.setString(1, id);
+			rs = pstmt.executeQuery();
+			
+			if(rs.next()){//해당 아이디가 멤버테이블에 레코드가 존재할경우
+				String dbpasswd= rs.getString("passwd");
+				//사용자가 입력한 비밀번호와 테이블의 비밀번호가 같을때 동작
+				if(BCrypt.checkpw(shaPass, dbpasswd)){
+					member = new LogonDataBean();//데이터 저장빈 객체 생성
+					member.setId(rs.getString("id"));
+					member.setName(rs.getString("name"));
+					member.setReg_date(rs.getTimestamp("reg_date"));
+					member.setAddress(rs.getString("address"));
+					member.setTel(rs.getString("tel"));
+				}
+			}
+		}catch(Exception ex){
+			ex.printStackTrace();
+		}finally{
+			if(rs != null) try { rs.close();} catch(SQLException ex){}
+			if(pstmt != null) try{ pstmt.close();}catch(SQLException ex){}
+			if(conn != null) try { conn.close();} catch(SQLException ex){}	
+		}
+		return member; //데이터 저장빈 객체 member 리턴
+	}
 	
+	//회원 정보 수정 메소드
+	@SuppressWarnings("resourece")
+	public int updateMember(LogonDataBean member){
+		Connection conn = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int x= -1;
+		
+		SHA256 sha = SHA256.getInsatnce();
+		try{
+			conn = getConnection();
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		return x;
+		
+	}
 	
 }
