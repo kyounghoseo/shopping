@@ -18,7 +18,7 @@ public class CartDBBean {
 	public static CartDBBean getInstance() {
 		return instance;
 	}
-
+ 
 	private CartDBBean() {
 
 	}
