@@ -126,7 +126,7 @@ public class LogonDBBean {
 	/*-------------아이디중복확인 끝 --------------------------------------*/
 	
 	//주어진 id에 해당하는 회원정보를 얻어내는 메소드
-	public LogonDataBean getMemeber(String id){
+	public LogonDataBean getMember(String id){
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
