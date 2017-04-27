@@ -14,11 +14,11 @@ import javax.sql.DataSource;
 import work.crypt.BCrypt;
 import work.crypt.SHA256;
 
-public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ³¸®ºó
-	// MngrDBBean Àü¿ª °´Ã¼ »ý¼º <- ÇÑ °³ÀÇ °´Ã¼¸¸ »ý¼ºÇØ¼­ °øÀ¯
+public class MngrDBBean {//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½, ï¿½ï¿½ï¿½Å°ï¿½ï¿½ï¿½ ï¿½ÎºÐ¿ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ DBÃ³ï¿½ï¿½ï¿½ï¿½
+	// MngrDBBean ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½ï¿½ï¿½ <- ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½
 	private static MngrDBBean instance = new MngrDBBean();
 
-	// MngrDBBean °´Ã¼¸¦ ¸®ÅÏÇÏ´Â ¸Þ¼Òµå
+	// MngrDBBean ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 	public static MngrDBBean getInstance() {
 		return instance;
 
@@ -27,16 +27,16 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 	private MngrDBBean() {
 	}
 
-	// Ä¿³Ø¼Ç Ç®¿¡¼­ Ä¿³Ø¼Ç °´Ã¼¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå
+	// Ä¿ï¿½Ø¼ï¿½ Ç®ï¿½ï¿½ï¿½ï¿½ Ä¿ï¿½Ø¼ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	private Connection getConnection() throws Exception {
 		Context initCtx = new InitialContext();
 		Context envCtx = (Context) initCtx.lookup("java:comp/env");
 		DataSource ds = (DataSource) envCtx.lookup("jdbc/jsptest");
 		return ds.getConnection();
 
-	}// getConnection³¡
+	}// getConnectionï¿½ï¿½
 
-	// °ü¸®ÀÚ ÀÎÁõ ¸Þ¼Òµå
+	// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public int userCheck(String id, String passwd) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -54,14 +54,14 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 			pstmt.setString(1, id);
 			rs = pstmt.executeQuery();
 
-			if (rs.next()) {//ÇØ´ç ¾ÆÀÌµð°¡ ÀÖÀ¸¸é ¼öÇà
+			if (rs.next()) {//ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 				String dbpasswd = rs.getString("managerPasswd");
 				if (BCrypt.checkpw(shaPass, dbpasswd))
-					x = 1; // ÀÎÁõ¼º°ø
+					x = 1; // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 				else
-					x = 0; // ºñ¹Ð¹øÈ£ Æ²¸²
-			} else // ÇØ´ç ¾ÆÀÌµð ¾øÀ¸¸é ¼öÇà
-				x = -1; // ¾ÆÀÌµð ¾øÀ½
+					x = 0; // ï¿½ï¿½Ð¹ï¿½È£ Æ²ï¿½ï¿½
+			} else // ï¿½Ø´ï¿½ ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+				x = -1; // ï¿½ï¿½ï¿½Ìµï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -84,9 +84,9 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 		}
 		return x;
 
-	}// userCheck ³¡
+	}// userCheck ï¿½ï¿½
 
-	// Ã¥ µî·Ï ¸Þ¼Òµå
+	// Ã¥ ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public void insertBook(MngrDataBean book) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -128,7 +128,7 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 		}
 	}
 
-	//ÀÌ¹Ì µî·ÏµÈ Ã¥À» °ËÁõ
+	//ï¿½Ì¹ï¿½ ï¿½ï¿½Ïµï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 	public int registedBookconfirm(String kind, String bookName, String author) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -149,9 +149,9 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 			rs = pstmt.executeQuery();
 
 			if (rs.next())
-				x = 1; // ÇØ´ç Ã¥ÀÌ ÀÌ¹Ì µî·ÏµÇ¾î ÀÖÀ½
+				x = 1; // ï¿½Ø´ï¿½ Ã¥ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ÏµÇ¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 			else
-				x = -1; // ÇØ´ç Ã¥ÀÌ ÀÌ¹Ì µî·ÏµÇ¾î ÀÖÁö ¾ÊÀ½
+				x = -1; // ï¿½Ø´ï¿½ Ã¥ï¿½ï¿½ ï¿½Ì¹ï¿½ ï¿½ï¿½ÏµÇ¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -173,10 +173,10 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 				}
 		}
 		return x;
-	}// registedBookconfirm³¡
+	}// registedBookconfirmï¿½ï¿½
 
-	// ÀüÃ¼ µî·ÏµÈ Ã¥ÀÇ ¼ö¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå
-	public int getBookcount() throws Exception {
+	// ï¿½ï¿½Ã¼ ï¿½ï¿½Ïµï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
+	public int getBookCount() throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
@@ -211,9 +211,9 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 				}
 		}
 		return x;
-	}//ÀüÃ¼ µî·ÏµÈ Ã¥ÀÇ ¼ö¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå ³¡
+	}//ï¿½ï¿½Ã¼ ï¿½ï¿½Ïµï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½
 
-	// ÇØ´ç ºÐ·ùÀÇ Ã¥ÀÇ ¼ö¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå
+	// ï¿½Ø´ï¿½ ï¿½Ð·ï¿½ï¿½ï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public int getBookCount(String book_kind) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -253,9 +253,9 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 		}
 		return x;
 
-	}// ÇØ´ç ºÐ·ùÀÇ Ã¥ÀÇ ¼ö¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå ³¡
+	}// ï¿½Ø´ï¿½ ï¿½Ð·ï¿½ï¿½ï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½
 
-	// Ã¥ÀÇ Á¦¸ñÀ» ¾ò¾î³¿
+	// Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³¿
 	public String getBookTitle(int book_id) {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -292,9 +292,9 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 		}
 		return x;
 
-	}// Ã¥ÀÇ Á¦¸ñÀ» ¾ò¾î³¿ ³¡
+	}// Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³¿ ï¿½ï¿½
 
-	// ºÐ·ùº° ¶Ç´Â ÀüÃ¼ µî·ÏµÈ Ã¥ÀÇ Á¤º¸¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå
+	// ï¿½Ð·ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½Ïµï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public List<MngrDataBean> getBooks(String book_kind) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -360,9 +360,9 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 
 		}
 		return bookList;
-	}// ºÐ·ùº° ¶Ç´Â ÀüÃ¼ µî·ÏµÈ Ã¥ÀÇ Á¤º¸¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå ³¡
+	}// ï¿½Ð·ï¿½ï¿½ï¿½ ï¿½Ç´ï¿½ ï¿½ï¿½Ã¼ ï¿½ï¿½Ïµï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½ ï¿½ï¿½
 
-	// ¼îÇÎ¸ô ¸ÞÀÎ¿¡ Ç¥½ÃÇÏ±â À§ÇØ¼­ »ç¿ëÇÏ´Â ºÐ·ùº° ½Å°£Ã¥ ¸ñ·ÏÀ» ¾ò¾î³»´Â ¸Þ¼Òµå
+	// ï¿½ï¿½ï¿½Î¸ï¿½ ï¿½ï¿½ï¿½Î¿ï¿½ Ç¥ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½Ø¼ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Ð·ï¿½ï¿½ï¿½ ï¿½Å°ï¿½Ã¥ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 	public MngrDataBean[] getBooks(String book_kind, int count) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -426,10 +426,10 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 
 		}
 		return bookList;
-	}// MngrDataBean[] getBooks ³¡
+	}// MngrDataBean[] getBooks ï¿½ï¿½
 
-	// bookId¿¡ ÇØ´çÇÏ´Â Ã¥ÀÇ Á¤º¸¸¦ ¾ò¾î³»´Â ¸Þ¼Òµå·Î
-	// µî·ÏµÈ Ã¥À» ¼öÁ¤ÇÏ±â À§ÇØ ¼öÁ¤ ÆûÀ¸·Î ÀÐ¾îµéÀÌ±â À§ÇÑ ¸Þ¼Òµå
+	// bookIdï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½î³»ï¿½ï¿½ ï¿½Þ¼Òµï¿½ï¿½
+	// ï¿½ï¿½Ïµï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½Ì±ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¼Òµï¿½
 
 	public MngrDataBean getBook(int bookId) throws Exception {
 		Connection conn = null;
@@ -480,9 +480,9 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 		}
 		return book;
 
-	}// MngrDataBean getBook ³¡
+	}// MngrDataBean getBook ï¿½ï¿½
 
-	// µî·ÏµÈ Ã¥ÀÇ Á¤º¸¸¦ ¼öÁ¤ ½Ã »ç¿ëÇÏ´Â ¸Þ¼Òµå
+	// ï¿½ï¿½Ïµï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 	public void updateBook(MngrDataBean book, int bookId) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -526,9 +526,9 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 				} catch (SQLException ex) {
 				}
 		}
-	}// updateBook ³¡
+	}// updateBook ï¿½ï¿½
 
-	// bookId¿¡ ÇØ´çÇÏ´Â Ã¥ÀÇ Á¤º¸¸¦ »èÁ¦ ½Ã »ç¿ëÇÏ´Â ¸Þ¼Òµå
+	// bookIdï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ Ã¥ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½Þ¼Òµï¿½
 	public void deleteBook(int bookId) throws Exception {
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -563,4 +563,4 @@ public class MngrDBBean {//°ü¸®ÀÚ ÀÎÁõ, »óÇ°°ü¸®, ±¸¸Å°ü¸® ºÎºÐ¿¡¼­ »ç¿ëÇÏ´Â DBÃ
 		}
 	}
 
-}// class³¡
+}// classï¿½ï¿½
