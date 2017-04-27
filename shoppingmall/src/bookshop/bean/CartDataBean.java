@@ -2,56 +2,68 @@ package bookshop.bean;
 
 public class CartDataBean {
 
-	
-	private int cart_id; //Àå¹Ù±¸´ÏÀÇ ¾ÆÀÌµğ
-	private String buyer; //±¸¸ÅÀÚ
-	private int book_id; //±¸¸ÅµÈ Ã¥ÀÇ ¾ÆÀÌµğ
-	private String book_title; //±¸¸ÅµÈ Ã¥¸í
-	private int buy_price; //ÆÇ¸Å°¡
-	private byte buy_count; //ÆÇ¸Å¼ö·®
-	private String book_image; //Ã¥ ÀÌ¹ÌÁö
+	private int cart_id; // ì¥ë°”êµ¬ë‹ˆì˜ ì•„ì´ë””
+	private String buyer; // êµ¬ë§¤ì
+	private int book_id; // êµ¬ë§¤ëœ ì±…ì˜ ì•„ì´ë””
+	private String book_title; // êµ¬ë§¤ëœ ì±…ëª…
+	private int buy_price; // íŒë§¤ê°€
+	private byte buy_count; // íŒë§¤ìˆ˜ëŸ‰
+	private String book_image; // ì±… ì´ë¯¸ì§€
+
 	public int getCart_id() {
 		return cart_id;
 	}
+
 	public void setCart_id(int cart_id) {
 		this.cart_id = cart_id;
 	}
+
 	public String getBuyer() {
 		return buyer;
 	}
+
 	public void setBuyer(String buyer) {
 		this.buyer = buyer;
 	}
+
 	public int getBook_id() {
 		return book_id;
 	}
+
 	public void setBook_id(int book_id) {
 		this.book_id = book_id;
 	}
+
 	public String getBook_title() {
 		return book_title;
 	}
+
 	public void setBook_title(String book_title) {
 		this.book_title = book_title;
 	}
+
 	public int getBuy_price() {
 		return buy_price;
 	}
+
 	public void setBuy_price(int buy_price) {
 		this.buy_price = buy_price;
 	}
+
 	public byte getBuy_count() {
 		return buy_count;
 	}
+
 	public void setBuy_count(byte buy_count) {
 		this.buy_count = buy_count;
 	}
+
 	public String getBook_image() {
 		return book_image;
 	}
+
 	public void setBook_image(String book_image) {
 		this.book_image = book_image;
 	}
-	
-	
+
 }
