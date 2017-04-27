@@ -18,7 +18,7 @@ public class CartDBBean {
 	public static CartDBBean getInstance() {
 		return instance;
 	}
- 
+
 	private CartDBBean() {
 
 	}
@@ -30,7 +30,7 @@ public class CartDBBean {
 		return ds.getConnection();
 
 	}
-	//Àå¹Ù±¸´Ï ´ã±â ¸¦ Å¬¸¯ÇÏ¸é ¼öÇàµÇ´Â °ÍÀ¸·Î cart Å×ÀÌºí¿¡ »õ·Î¿î ·¹ÄÚµå¸¦ Ãß°¡
+	//ì¥ë°”êµ¬ë‹ˆ ë‹´ê¸° ë¥¼ í´ë¦­í•˜ë©´ ìˆ˜í–‰ë˜ëŠ” ê²ƒìœ¼ë¡œ cart í…Œì´ë¸”ì— ìƒˆë¡œìš´ ë ˆì½”ë“œë¥¼ ì¶”ê°€
 	public void insertCart(CartDataBean cart)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -66,7 +66,7 @@ public class CartDBBean {
 		}
 	}
 
-	//id¿¡ ÇØ´çÇÏ´Â ·¹ÄÚµåÀÇ ¼ö¸¦ ¾ò¾î³»´Â ¸Ş¼Òµå
+	//idì— í•´ë‹¹í•˜ëŠ” ë ˆì½”ë“œì˜ ìˆ˜ë¥¼ ì–»ì–´ë‚´ëŠ” ë©”ì†Œë“œ
 	public int getListCount(String id)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -102,7 +102,7 @@ public class CartDBBean {
 		return x;
 	}
 	
-	//id¿¡ ÇØ´çÇÏ´Â ·¹ÄÚµåÀÇ ¸ñ·ÏÀ» ¾ò¾î³»´Â ¸Ş¼Òµå
+	//idì— í•´ë‹¹í•˜ëŠ” ë ˆì½”ë“œì˜ ëª©ë¡ì„ ì–»ì–´ë‚´ëŠ” ë©”ì†Œë“œ
 	public List<CartDataBean> getCart(String id,int count)throws Exception{
 		
 		
@@ -156,7 +156,7 @@ public class CartDBBean {
 		return lists;
 	}
 	
-	//Àå¹Ù±¸´Ï¿¡¼­ ¼ö·® ¼öÁ¤ ½Ã ½ÇÇàµÇ´Â ¸Ş¼Òµå
+	//ì¥ë°”êµ¬ë‹ˆì—ì„œ ìˆ˜ëŸ‰ ìˆ˜ì • ì‹œ ì‹¤í–‰ë˜ëŠ” ë©”ì†Œë“œ
 	public void updateCount(int cart_id, byte count)throws Exception{
 		Connection conn = null;
 		PreparedStatement pstmt = null;
@@ -186,7 +186,7 @@ public class CartDBBean {
 	}
 	
 	
-	//Àå¹Ù±¸´Ï¿¡¼­ cart_id¿¡ ´ëÇÑ ·¹ÄÚµå¸¦ »èÁ¦ÇÏ´Â ¸Ş¼Òµå
+	//ì¥ë°”êµ¬ë‹ˆì—ì„œ cart_idì— ëŒ€í•œ ë ˆì½”ë“œë¥¼ ì‚­ì œí•˜ëŠ” ë©”ì†Œë“œ
 	public void deleteList(int cart_id)throws Exception{
 		
 		Connection conn = null;
@@ -215,7 +215,7 @@ public class CartDBBean {
 		}
 	}
 	
-	//id¿¡ ÇØ´çÇÏ´Â ¸ğµç ·¹ÄÚµå¸¦ »èÁ¦ÇÏ´Â ¸Ş¼Òµå·Î [Àå¹Ù±¸´Ï ºñ¿ì±â] ¹öÆ°À» Å¬¸¯ ½Ã ½ÇÇàµÈ´Ù.
+	//idì— í•´ë‹¹í•˜ëŠ” ëª¨ë“  ë ˆì½”ë“œë¥¼ ì‚­ì œí•˜ëŠ” ë©”ì†Œë“œë¡œ [ì¥ë°”êµ¬ë‹ˆ ë¹„ìš°ê¸°] ë²„íŠ¼ì„ í´ë¦­ ì‹œ ì‹¤í–‰ëœë‹¤.
 	public void deleteAll(String id)throws Exception{
 		Connection conn = null ;
 		PreparedStatement pstmt = null;
